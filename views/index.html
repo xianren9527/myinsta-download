@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MyInsta Download - Download Instagram photos, videos, reels, and stories for free">
+  <meta name="keywords" content="instagram downloader, instagram photo downloader, instagram video downloader, instagram reel downloader, instagram story downloader">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <title>MyInsta Download - Free Instagram Downloader</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            darkbg: '#0f0f0f',
+            darkcard: '#1a1b1e',
+            accent: '#3b82f6',
+            lighttext: '#f8fafc'
+          },
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+</head>
+<body class="bg-darkbg text-lighttext min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <svg class="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        <h1 class="text-2xl font-bold">MyInsta Download</h1>
+      </div>
+      
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#how-to-use" class="hover:text-accent transition-colors">How to Use</a></li>
+          <li><a href="#faq" class="hover:text-accent transition-colors">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto max-w-3xl">
+      <!-- Hero Section -->
+      <section class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Download Instagram Content In Seconds</h2>
+        <p class="text-gray-400 text-lg mb-8">Photos, Videos, Reels, and Stories - Download them all with just one click!</p>
+        
+        <!-- Download Form -->
+        <div class="bg-darkcard rounded-xl p-6 shadow-lg backdrop-blur-sm bg-opacity-80 border border-gray-800">
+          <form id="downloadForm" class="space-y-4">
+            <div class="relative">
+              <input 
+                type="text" 
+                id="instagramUrl" 
+                placeholder="Paste Instagram link here..."
+                class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all placeholder-gray-500"
+                required
+              >
+              <div id="urlError" class="hidden text-red-500 text-sm mt-1 text-left">
+                Please enter a valid Instagram URL
+              </div>
+            </div>
+            
+            <button 
+              type="submit" 
+              id="downloadBtn"
+              class="w-full bg-accent hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center"
+            >
+              <span id="btnText">Download</span>
+              <svg id="loadingIcon" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </section>
+      
+      <!-- Preview Section -->
+      <section id="previewSection" class="hidden mb-12">
+        <h3 class="text-2xl font-bold mb-4">Preview Content</h3>
+        
+        <div class="bg-darkcard rounded-xl p-6 shadow-lg">
+          <div id="previewContainer" class="flex flex-col items-center space-y-4">
+            <!-- Content will be inserted here by JavaScript -->
+          </div>
+          
+          <div class="mt-6 flex justify-center">
+            <button 
+              id="downloadAllBtn" 
+              class="bg-accent hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Download All
+            </button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- How to Use Section -->
+      <section id="how-to-use" class="mb-12">
+        <h3 class="text-2xl font-bold mb-4">How to Use</h3>
+        
+        <div class="bg-darkcard rounded-xl p-6 shadow-lg">
+          <ol class="space-y-4 list-decimal list-inside">
+            <li class="flex items-start">
+              <span class="text-accent font-bold mr-2">1.</span>
+              <span>Copy the URL of the Instagram post, reel, or story you want to download</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-accent font-bold mr-2">2.</span>
+              <span>Paste the URL in the input field above</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-accent font-bold mr-2">3.</span>
+              <span>Click the "Download" button</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-accent font-bold mr-2">4.</span>
+              <span>Preview the content and click "Download" to save it to your device</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+      
+      <!-- FAQ Section -->
+      <section id="faq" class="mb-12">
+        <h3 class="text-2xl font-bold mb-4">Frequently Asked Questions</h3>
+        
+        <div class="bg-darkcard rounded-xl p-6 shadow-lg space-y-6">
+          <div>
+            <h4 class="text-lg font-semibold text-accent mb-2">Is this service free?</h4>
+            <p class="text-gray-300">Yes, MyInsta Download is completely free to use with no hidden fees.</p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-accent mb-2">Are there any download limits?</h4>
+            <p class="text-gray-300">To ensure fair usage for everyone, there's a limit of 20 downloads per hour per IP address.</p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-accent mb-2">Is it legal to download Instagram content?</h4>
+            <p class="text-gray-300">You should only download content that you have rights to or have permission to download. Please respect copyright laws and Instagram's Terms of Service.</p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold text-accent mb-2">Why isn't the download working?</h4>
+            <p class="text-gray-300">This could be due to private accounts, temporary Instagram issues, or invalid URLs. Make sure the content is from a public account and the URL is correct.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-6 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 mb-4 md:mb-0">
+          &copy; 2023 MyInsta Download. Not affiliated with Instagram.
+        </p>
+        
+        <div>
+          <p class="text-gray-400 text-sm">
+            <strong>Legal Notice:</strong> Use this service responsibly. Only download content you have rights to.
+          </p>
+          <a href="#" id="dmcaLink" class="text-accent text-sm hover:underline">DMCA / Copyright Complaint</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DMCA Modal -->
+  <div id="dmcaModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-darkcard rounded-xl p-6 max-w-md w-full mx-4">
+      <h3 class="text-xl font-bold mb-4">DMCA / Copyright Complaint</h3>
+      
+      <form id="dmcaForm" class="space-y-4">
+        <div>
+          <label for="dmcaName" class="block text-sm font-medium mb-1">Your Name</label>
+          <input type="text" id="dmcaName" class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+        </div>
+        
+        <div>
+          <label for="dmcaEmail" class="block text-sm font-medium mb-1">Your Email</label>
+          <input type="email" id="dmcaEmail" class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+        </div>
+        
+        <div>
+          <label for="dmcaContent" class="block text-sm font-medium mb-1">Content URL</label>
+          <input type="url" id="dmcaContent" class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none">
+        </div>
+        
+        <div>
+          <label for="dmcaMessage" class="block text-sm font-medium mb-1">Details</label>
+          <textarea id="dmcaMessage" rows="4" class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none"></textarea>
+        </div>
+        
+        <div class="flex justify-end space-x-4">
+          <button type="button" id="dmcaCloseBtn" class="px-4 py-2 text-gray-300 hover:text-white">Close</button>
+          <button type="submit" class="px-4 py-2 bg-accent hover:bg-blue-600 text-white rounded-lg">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/js/main.js"></script>
+</body>
+</html> 
