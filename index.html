@@ -407,25 +407,129 @@
         loader.style.display = 'block';
         downloadBtn.disabled = true;
         
-        // Simulate API call with setTimeout
-        setTimeout(function() {
+        // Call the API to get Instagram content
+        fetch('/api/download', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ url: url }),
+        })
+        .then(response => response.json())
+        .then(data => {
           loader.style.display = 'none';
           downloadBtn.disabled = false;
           
-          // Show mock preview
+          if (!data.success) {
+            errorMsg.textContent = data.message || 'Error processing Instagram URL';
+            errorMsg.style.display = 'block';
+            return;
+          }
+          
+          // Show preview
           previewSection.style.display = 'block';
-          previewContent.innerHTML = `
-            <div class="card">
-              <img src="https://via.placeholder.com/500x500.png?text=Instagram+Content+Preview" alt="Instagram Content Preview">
-              <p>This is a simulated preview. In the actual application, content from the Instagram URL would be displayed here.</p>
-            </div>
+          
+          // Generate HTML for media preview
+          let previewHTML = '';
+          
+          if (data.data.username) {
+            previewHTML += `<div class="user-info"><strong>@${data.data.username}</strong></div>`;
+          }
+          
+          if (data.data.caption) {
+            previewHTML += `<p class="caption">${data.data.caption}</p>`;
+          }
+          
+          previewHTML += '<div class="media-container">';
+          
+          data.data.media.forEach((item, index) => {
+            if (item.type === 'image') {
+              previewHTML += `
+                <div class="media-item">
+                  <img src="${item.url}" alt="Instagram Image ${index + 1}">
+                  <a href="${item.url}" download="instagram_image_${index + 1}" class="download-link" target="_blank">Download Image</a>
+                </div>
+              `;
+            } else if (item.type === 'video') {
+              previewHTML += `
+                <div class="media-item">
+                  <video controls${item.thumbnail ? ` poster="${item.thumbnail}"` : ''}>
+                    <source src="${item.url}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <a href="${item.url}" download="instagram_video_${index + 1}" class="download-link" target="_blank">Download Video</a>
+                </div>
+              `;
+            }
+          });
+          
+          previewHTML += '</div>';
+          
+          previewContent.innerHTML = previewHTML;
+          
+          // Style the download links
+          const style = document.createElement('style');
+          style.textContent = `
+            .user-info {
+              margin-bottom: 1rem;
+              font-size: 1.1rem;
+            }
+            .caption {
+              margin-bottom: 1.5rem;
+              font-style: italic;
+              color: #9ca3af;
+            }
+            .media-container {
+              display: flex;
+              flex-direction: column;
+              gap: 1.5rem;
+            }
+            .media-item {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 0.5rem;
+            }
+            .media-item img, .media-item video {
+              max-width: 100%;
+              border-radius: 0.5rem;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .download-link {
+              display: inline-block;
+              background-color: #3b82f6;
+              color: white;
+              text-decoration: none;
+              padding: 0.5rem 1rem;
+              border-radius: 0.25rem;
+              font-weight: 500;
+              transition: background-color 0.2s;
+            }
+            .download-link:hover {
+              background-color: #2563eb;
+            }
           `;
-        }, 1500);
+          document.head.appendChild(style);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          loader.style.display = 'none';
+          downloadBtn.disabled = false;
+          errorMsg.textContent = 'Network error. Please try again.';
+          errorMsg.style.display = 'block';
+        });
       });
       
       // Handle download all button click
       downloadAllBtn.addEventListener('click', function() {
-        alert('Download started! In the actual application, this would download the content to your device.');
+        // Find all download links and trigger clicks
+        const downloadLinks = document.querySelectorAll('.download-link');
+        if (downloadLinks.length > 0) {
+          downloadLinks.forEach(link => {
+            // Create a new window/tab for each download
+            window.open(link.href, '_blank');
+          });
+        }
       });
       
       // Smooth scroll for navigation links
