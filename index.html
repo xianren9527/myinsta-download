@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MyInsta Download - Download Instagram photos, videos, reels, and stories for free">
+  <meta name="keywords" content="instagram downloader, instagram photo downloader, instagram video downloader, instagram reel downloader, instagram story downloader">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <title>MyInsta Download - Free Instagram Downloader</title>
+  
+  <style>
+    /* Base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: #0f0f0f;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    /* Typography */
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    /* Form elements */
+    input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #1a1b1e;
+      border: 1px solid #333;
+      border-radius: 0.25rem;
+      color: #f8fafc;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.2s ease;
+    }
+    
+    button:hover {
+      background-color: #2563eb;
+      transform: scale(1.02);
+    }
+    
+    button:active {
+      transform: scale(0.98);
+    }
+    
+    /* Card and sections */
+    .card {
+      background-color: #1a1b1e;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Loading animation */
+    .loader {
+      display: none;
+      width: 2rem;
+      height: 2rem;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s linear infinite;
+      margin-right: 0.5rem;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Preview section */
+    .preview {
+      display: none;
+      margin-top: 2rem;
+    }
+    
+    .preview img, .preview video {
+      max-width: 100%;
+      border-radius: 0.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* List styles */
+    ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Error message */
+    .error {
+      color: #ef4444;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Download Instagram Content In Seconds</h1>
+    <p>Photos, Videos, Reels, and Stories - Download them all with just one click!</p>
+    
+    <div class="card">
+      <input type="text" id="instaUrl" placeholder="Paste Instagram link here...">
+      <p class="error" id="errorMsg">Please enter a valid Instagram URL</p>
+      <button id="downloadBtn">
+        <div class="loader" id="loader"></div>
+        Download
+      </button>
+    </div>
+    
+    <div class="preview" id="previewSection">
+      <h2>Preview Content</h2>
+      <div id="previewContent"></div>
+      <button id="downloadAllBtn">Download All</button>
+    </div>
+    
+    <div>
+      <h2>How to Use</h2>
+      <ol>
+        <li>Copy the URL of the Instagram post, reel, or story you want to download</li>
+        <li>Paste the URL in the input field above</li>
+        <li>Click the "Download" button</li>
+        <li>Preview the content and click "Download" to save it to your device</li>
+      </ol>
+    </div>
+    
+    <div>
+      <h2>Frequently Asked Questions</h2>
+      <div class="card">
+        <h3>Is this service free?</h3>
+        <p>Yes, MyInsta Download is completely free to use. No registration required.</p>
+      </div>
+      
+      <div class="card">
+        <h3>What content can I download?</h3>
+        <p>You can download photos, videos, reels, and stories from public Instagram accounts.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Is it legal to download Instagram content?</h3>
+        <p>Downloading content for personal use is generally acceptable. However, republishing content without permission may violate copyright laws. Always respect the original creator's rights.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const downloadBtn = document.getElementById('downloadBtn');
+      const downloadAllBtn = document.getElementById('downloadAllBtn');
+      const instaUrl = document.getElementById('instaUrl');
+      const errorMsg = document.getElementById('errorMsg');
+      const loader = document.getElementById('loader');
+      const previewSection = document.getElementById('previewSection');
+      const previewContent = document.getElementById('previewContent');
+      
+      // Handle download button click
+      downloadBtn.addEventListener('click', function() {
+        const url = instaUrl.value.trim();
+        
+        // Basic validation
+        if (!url || !url.includes('instagram.com')) {
+          errorMsg.style.display = 'block';
+          return;
+        }
+        
+        errorMsg.style.display = 'none';
+        loader.style.display = 'block';
+        downloadBtn.disabled = true;
+        
+        // Simulate API call with setTimeout
+        setTimeout(function() {
+          loader.style.display = 'none';
+          downloadBtn.disabled = false;
+          
+          // Show mock preview
+          previewSection.style.display = 'block';
+          previewContent.innerHTML = `
+            <div class="card">
+              <img src="https://via.placeholder.com/500x500.png?text=Instagram+Content+Preview" alt="Instagram Content Preview">
+              <p>This is a simulated preview. In the actual application, content from the Instagram URL would be displayed here.</p>
+            </div>
+          `;
+        }, 1500);
+      });
+      
+      // Handle download all button click
+      downloadAllBtn.addEventListener('click', function() {
+        alert('Download started! In the actual application, this would download the content to your device.');
+      });
+    });
+  </script>
+</body>
+</html> 
